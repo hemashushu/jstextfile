@@ -510,18 +510,12 @@ class TextFile {
      *
      * @param {*} fullName
      * @param {*} callback 返回 (err, textLines, textFileOptions)
-     *   当目标文件不存在时 textLines 的值为 undefined。
      *   当文件内容为空时 textLines 为空数组。
      */
     static readLinesFromFile(fullName, callback) {
         TextFile.read(fullName, (err, lastTextContent, lastTextFileOptions) => {
             if (err) {
-                if (err.code === 'ENOENT') {
-                    // 目标文件不存在，返回 undefined.
-                    callback(null, undefined, lastTextFileOptions);
-                } else {
-                    callback(err);
-                }
+                callback(err);
                 return;
             }
 
